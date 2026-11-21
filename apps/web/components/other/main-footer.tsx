@@ -32,12 +32,10 @@ export function Footer() {
             <Link href="/lessons" className="transition-colors hover:text-foreground/80">
               {t("main-footer.learn")}
             </Link>
-            <a
-              href="https://github.com/matiqueue/mate-chess"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-foreground/80"
-            >
+            <Link href="/download" className="transition-colors hover:text-foreground/80">
+              {t("main-footer.download")}
+            </Link>
+            <a href="https://github.com/matiqueue/mate-chess" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground/80">
               GitHub
             </a>
           </nav>

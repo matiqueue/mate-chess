@@ -7,7 +7,9 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "env:setup": "node scripts/setup-env.mjs"
+    "env:setup": "node scripts/setup-env.mjs",
+    "check-types": "turbo check-types",
+    "test": "turbo test"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",

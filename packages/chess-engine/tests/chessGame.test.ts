@@ -56,7 +56,8 @@ describe("ChessGame", () => {
   })
 
   test("Game prevents moves when isGameOn is false", () => {
-    game.start()
+    // beforeEach uruchamia grę – tutaj symulujemy grę zatrzymaną
+    game["_isGameOn"] = false
 
     const move: Move = {
       from: board.getPositionByNotation("e2")!,

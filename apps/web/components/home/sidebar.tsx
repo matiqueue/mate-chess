@@ -3,7 +3,8 @@
 import { useUser } from "@clerk/nextjs"
 import { redirect, usePathname } from "next/navigation"
 import Link from "next/link"
-import { Home, PlayCircle, PuzzleIcon as PuzzlePiece, Bot, GraduationCap, Trophy, Users, BookOpen, Activity, Settings } from "lucide-react"
+import { Home, PlayCircle, PuzzleIcon as PuzzlePiece, Bot, GraduationCap, Trophy, Users, BookOpen, Activity, Settings, Download } from "lucide-react"
+import { useIsDesktopApp } from "@/hooks/use-desktop-app"
 
 import { ScrollArea } from "@workspace/ui/components/scroll-area"
 import { Separator } from "@workspace/ui/components/separator"
@@ -56,6 +57,7 @@ export function Sidebar() {
   const { user } = useUser()
   const clerk = useClerk()
   const { t } = useTranslation()
+  const isDesktopApp = useIsDesktopApp()
 
   const [mounted, setMounted] = useState(false)
 
@@ -135,6 +137,11 @@ export function Sidebar() {
             <Separator className="mx-6" />
 
             <div>
+              {!isDesktopApp && (
+                <NavItem href="/download" icon={Download}>
+                  {t("downloadApp")}
+                </NavItem>
+              )}
               <NavItem href="/settings" icon={Settings}>
                 {t("settings")}
               </NavItem>

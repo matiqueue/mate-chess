@@ -179,6 +179,14 @@ describe("Chess Pieces Movement", () => {
   })
 
   test("King can castle", () => {
+    // Roszada wymaga wolnych pól między królem a wieżą – w pozycji startowej stoją tam goniec i skoczek
+    for (const square of ["f1", "g1"]) {
+      const position = board.getPositionByNotation(square)!
+      const figure = position.figure
+      position.figure = null
+      board["_whiteFigures"] = board["_whiteFigures"].filter((f) => f !== figure)
+    }
+
     const move: Move = {
       from: board.getPositionByNotation("e1")!,
       to: board.getPositionByNotation("h1")!,

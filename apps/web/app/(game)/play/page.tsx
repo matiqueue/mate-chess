@@ -4,6 +4,7 @@
 
 export const dynamic = "force-dynamic"
 
+import { SERVER_URL } from "@/lib/config"
 import { useState, useEffect } from "react"
 import { motion, type TargetAndTransition } from "framer-motion"
 import { Link2, Server, ArrowRight, Users } from "lucide-react"
@@ -81,7 +82,7 @@ export default function GameModeSelector() {
       localStorage.setItem("guestId", player.id)
     }
 
-    const res = await fetch("http://localhost:4000/api/create-link-lobby", {
+    const res = await fetch(`${SERVER_URL}/api/create-link-lobby`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ player }),
@@ -99,7 +100,7 @@ export default function GameModeSelector() {
       localStorage.setItem("guestId", player.id)
     }
 
-    const res = await fetch("http://localhost:4000/api/join-link-lobby", {
+    const res = await fetch(`${SERVER_URL}/api/join-link-lobby`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code: joinCode, player }),
@@ -125,7 +126,7 @@ export default function GameModeSelector() {
 
     const player = { id: user.id, name: user.firstName || "User", avatar: user.imageUrl || "", isGuest: false }
 
-    const res = await fetch("http://localhost:4000/api/join-online-lobby", {
+    const res = await fetch(`${SERVER_URL}/api/join-online-lobby`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ player }),

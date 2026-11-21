@@ -176,7 +176,7 @@ export default function ChessOpenings() {
             <div
               className="absolute inset-0 bg-cover bg-center rounded-lg m-5"
               style={{
-                backgroundImage: "url('logo/openingsLogo.webp')", // Zmień na ścieżkę do swojego zdjęcia
+                backgroundImage: "url('/logo/openingsLogo.webp')", // Zmień na ścieżkę do swojego zdjęcia
               }}
             >
               {/* Transparent gradient */}

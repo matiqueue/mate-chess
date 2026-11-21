@@ -63,25 +63,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   // Minimal layout
-  if (
-    pathname.startsWith("/sign-up") ||
-    pathname.startsWith("/sign-in") ||
-    pathname.startsWith("/profile/stats/") ||
-    pathname.startsWith("/settings")
-  ){
+  if (pathname.startsWith("/sign-up") || pathname.startsWith("/sign-in") || pathname.startsWith("/profile/stats/")) {
     return (
       <ClerkProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} enableColorScheme disableTransitionOnChange>
-        <I18nextProvider i18n={i18n}>
-          <Analytics />
-          <AudioProvider>
-            <ErrorContextProvider>
-              <MinimalLayout>{children}</MinimalLayout>
-            </ErrorContextProvider>
-          </AudioProvider>
-        </I18nextProvider>
-      </ThemeProvider>
-    </ClerkProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} enableColorScheme disableTransitionOnChange>
+          <I18nextProvider i18n={i18n}>
+            <Analytics />
+            <AudioProvider>
+              <ErrorContextProvider>
+                <MinimalLayout>{children}</MinimalLayout>
+              </ErrorContextProvider>
+            </AudioProvider>
+          </I18nextProvider>
+        </ThemeProvider>
+      </ClerkProvider>
     )
   }
 

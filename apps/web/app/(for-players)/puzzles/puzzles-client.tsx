@@ -7,7 +7,6 @@ import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group"
 import { Label } from "@workspace/ui/components/label"
-import { useTheme } from "next-themes"
 import { cn } from "@workspace/ui/lib/utils"
 import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { loadQuizProgress, saveQuizProgress, resetQuizProgress } from "@/utils/quizStorage"
@@ -198,7 +197,6 @@ const itemVariants: Variants = {
 
 export default function PuzzlesClient() {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const [activeTab, setActiveTab] = useState<"quiz" | "learn">("quiz")
   const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -295,20 +293,10 @@ export default function PuzzlesClient() {
   return (
     <motion.div initial="hidden" animate="visible" exit="exit" variants={containerVariants} className="container mx-auto py-8 px-4 max-w-full">
       {/* Hero Section */}
-      <motion.div
-        variants={itemVariants}
-        className={cn(
-          "relative overflow-hidden rounded-xl mb-12",
-          theme === "light" ? "bg-white text-black" : "bg-gradient-to-r from-gray-900 to-gray-800 text-white",
-        )}
-      >
+      <motion.div variants={itemVariants} className="relative overflow-hidden rounded-xl border bg-card text-card-foreground mb-12">
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80"
-            alt="Chess background"
-            className="w-full h-full object-cover"
-          />
-          <div className={cn("absolute inset-0", theme === "light" ? "bg-white opacity-20" : "bg-black opacity-60")}></div>
+          <img src="/backgrounds/playBgImage.png" alt="" className="w-full h-full object-cover grayscale" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/40"></div>
         </div>
         <div className="relative z-10 p-8 md:p-12 text-center">
           <motion.h1
@@ -328,15 +316,21 @@ export default function PuzzlesClient() {
 
       {/* Tabs Navigation */}
       <motion.div variants={itemVariants} className="relative mb-5 flex justify-center">
-        <div className="w-full max-w-200 flex justify-around p-2 border rounded-lg px-6 pt-3 pb-4">
-          <Button variant="ghost" className="relative px-8 py-4 text-4xl font-bold" onClick={() => setActiveTab("quiz")}>
-            {t("tabs.quiz")}
-            {activeTab === "quiz" && <motion.div layoutId="underline" className="absolute -bottom-3 left-0 right-0 h-1 bg-primary rounded-full" />}
-          </Button>
-          <Button variant="ghost" className="relative px-8 py-4 text-4xl font-bold" onClick={() => setActiveTab("learn")}>
-            {t("tabs.learn")}
-            {activeTab === "learn" && <motion.div layoutId="underline" className="absolute -bottom-3 left-0 right-0 h-1 bg-primary rounded-full" />}
-          </Button>
+        <div className="inline-flex w-full max-w-md rounded-lg bg-muted p-1">
+          {(["quiz", "learn"] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setActiveTab(tab)}
+              className={cn(
+                "relative flex-1 rounded-md px-6 py-1.5 text-sm font-medium transition-colors",
+                activeTab === tab ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {activeTab === tab && <motion.div layoutId="puzzles-tab" className="absolute inset-0 rounded-md bg-background shadow-sm" />}
+              <span className="relative">{t(`tabs.${tab}`)}</span>
+            </button>
+          ))}
         </div>
       </motion.div>
 
@@ -345,10 +339,10 @@ export default function PuzzlesClient() {
         <motion.div variants={itemVariants} className="flex flex-col items-center mb-8">
           <div className="w-full max-w-2xl mb-4">
             <div className="flex justify-between mb-2">
-              <span className="text-md font-medium">{t("quiz.progress", "Progress")}</span>
-              <span className="text-md font-medium">{Math.round(progress)}%</span>
+              <span className="text-sm font-medium">{t("quiz.progress", "Progress")}</span>
+              <span className="text-sm text-muted-foreground">{Math.round(progress)}%</span>
             </div>
-            <div className={cn("w-full rounded-full h-4", theme === "light" ? "bg-gray-300" : "bg-stone-800")}>
+            <div className="w-full rounded-full h-2 bg-muted">
               <motion.div
                 initial={{ width: `${progress}%` }}
                 animate={{ width: `${progress}%` }}
@@ -474,8 +468,8 @@ export default function PuzzlesClient() {
                     >
                       <Trophy className="h-20 w-20 text-primary" />
                     </motion.div>
-                    <CardTitle className="text-3xl">{t("quiz.quizCompleted")}</CardTitle>
-                    <CardDescription className="text-xl mt-2">{t("quiz.score", { score, total: chessQuizzes.length })}</CardDescription>
+                    <CardTitle className="text-2xl">{t("quiz.quizCompleted")}</CardTitle>
+                    <CardDescription className="text-base mt-2">{t("quiz.score", { score, total: chessQuizzes.length })}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <motion.div
@@ -518,7 +512,7 @@ export default function PuzzlesClient() {
             <div className="w-full px-4 py-8 space-y-8">
               <Card className="w-full">
                 <CardHeader>
-                  <CardTitle className="text-4xl font-bold">{t("learn.learnChess")}</CardTitle>
+                  <CardTitle className="text-2xl font-bold">{t("learn.learnChess")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-lg">{t("learn.description")}</p>
@@ -526,7 +520,7 @@ export default function PuzzlesClient() {
               </Card>
               <Card className="w-full">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-semibold">{t("learn.historyTitle")}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{t("learn.historyTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p>{t("learn.historyDescription")}</p>
@@ -535,7 +529,7 @@ export default function PuzzlesClient() {
               </Card>
               <Card className="w-full">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-semibold">{t("learn.basicsTitle")}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{t("learn.basicsTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="mb-4">{t("learn.basicsDescription")}</p>
@@ -551,7 +545,7 @@ export default function PuzzlesClient() {
               </Card>
               <Card className="w-full">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-semibold">{t("learn.tacticsTitle")}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{t("learn.tacticsTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p>{t("learn.tacticsDescription")}</p>
@@ -560,7 +554,7 @@ export default function PuzzlesClient() {
               </Card>
               <Card className="w-full">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-semibold">{t("learn.mastersTitle")}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{t("learn.mastersTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p>{t("learn.mastersDescription")}</p>

@@ -1,6 +1,7 @@
 "use client" // Dyrektywa określająca, że komponent działa po stronie klienta
 
 // Importy bibliotek i funkcji React
+import { ERRORS_WS_URL } from "@/lib/config"
 import { createContext, useContext, useEffect, useRef } from "react" // Funkcje React do kontekstu, efektów i referencji
 
 // Tworzenie kontekstu do raportowania błędów
@@ -71,11 +72,13 @@ export function ErrorContextProvider({ children }: ErrorContextProviderProps) {
 
   // Efekt ustawiający WebSocket i przechwytujący błędy
   useEffect(() => {
-    wsRef.current = new WebSocket("ws://localhost:3005") // Inicjalizacja połączenia WebSocket
+    // Serwis logów błędów działa tylko lokalnie (lub gdy ustawiono NEXT_PUBLIC_ERRORS_WS_URL)
+    if (ERRORS_WS_URL) wsRef.current = new WebSocket(ERRORS_WS_URL)
 
-    wsRef.current.onopen = () => {
-      console.log("Połączono z WebSocket w ErrorContextProvider") // Potwierdzenie połączenia
-    }
+    if (wsRef.current)
+      wsRef.current.onopen = () => {
+        console.log("Połączono z WebSocket w ErrorContextProvider") // Potwierdzenie połączenia
+      }
 
     const originalConsoleError = console.error // Zachowanie oryginalnej funkcji console.error
     const originalConsoleWarn = console.warn // Zachowanie oryginalnej funkcji console.warn

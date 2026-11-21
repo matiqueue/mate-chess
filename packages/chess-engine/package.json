@@ -8,7 +8,8 @@
     "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "chess": "tsx src/index.ts"
+    "chess": "tsx src/index.ts",
+    "check-types": "tsc --noEmit"
   },
   "_moduleAliases": {
     "@": "./src"

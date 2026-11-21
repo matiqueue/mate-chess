@@ -356,7 +356,8 @@
   "main-footer": {
     "play": "Graj",
     "learn": "Ucz się",
-    "community": "Społeczność"
+    "community": "Społeczność",
+    "download": "Pobierz"
   },
   "seo": {
     "puzzles": {
@@ -364,17 +365,16 @@
       "description": "Sprawdź swoją wiedzę szachową w naszych interaktywnych zagadkach i quizach"
     }
   },
-
   "quiz": {
     "loading": "Ładowanie łamigłówek szachowych...",
-    "questionLabel": "Pytanie {current} z {total}",
+    "questionLabel": "Pytanie {{current}} z {{total}}",
     "checkAnswer": "Sprawdź odpowiedź",
     "nextQuestion": "Następne pytanie",
     "seeResults": "Zobacz wyniki",
     "previous": "Poprzednie",
     "explanation": "Wyjaśnienie:",
     "quizCompleted": "Quiz ukończony!",
-    "score": "Uzyskałeś {score} punktów na {total}",
+    "score": "Uzyskałeś {{score}} punktów na {{total}}",
     "perfect": "Perfekcyjny wynik! Jesteś mistrzem szachowym!",
     "great": "Świetna robota! Masz doskonałą wiedzę szachową.",
     "good": "Dobra robota! Kontynuuj naukę, aby poprawić swoją wiedzę szachową.",
@@ -590,7 +590,70 @@
   "selectColorTitle": "Wybier kolor",
   "selectColorDesc": "Wybierz którymi pionkami będziesz grał!",
   "selectGameType": "Wybierz tryb gry!",
-  "selectGameTypeDesc": "Wybierz długość rozgrywki!"
+  "selectGameTypeDesc": "Wybierz długość rozgrywki!",
+  "downloadApp": "Aplikacja desktopowa",
+  "comingSoon": {
+    "badge": "Wkrótce",
+    "description": "Pracujemy nad tą sekcją. Zajrzyj tu niedługo – a w międzyczasie zagraj partię albo rozwiąż kilka łamigłówek.",
+    "back": "Wróć na stronę główną",
+    "pages": {
+      "social": "Społeczność",
+      "clubs": "Kluby",
+      "forums": "Fora",
+      "friends": "Znajomi",
+      "members": "Członkowie",
+      "news": "Aktualności",
+      "watch": "Oglądaj partie"
+    }
+  },
+  "downloadPage": {
+    "badge": "Aplikacja desktopowa",
+    "version": "Wersja {{version}}",
+    "title": "Mate Chess na Twoim komputerze",
+    "subtitle": "Graj w natywnym oknie na macOS, Windows i Linuksie – z tym samym kontem, trybami gry i ustawieniami co w wersji webowej.",
+    "downloadFor": "Pobierz dla {{os}}",
+    "seeReleases": "Zobacz wydania",
+    "playInBrowser": "Graj w przeglądarce",
+    "released": "Wydano {{date}}",
+    "allPlatforms": "Wszystkie platformy",
+    "allReleases": "Wszystkie wydania na GitHubie",
+    "yourSystem": "Twój system",
+    "comingSoon": "Wkrótce",
+    "alreadyDesktop": "Korzystasz już z aplikacji desktopowej.",
+    "notAvailable": "Pierwsze wydanie desktopowe jest w przygotowaniu. Instalatory pojawią się tu automatycznie, gdy zostaną opublikowane w GitHub Releases.",
+    "backHome": "Wróć na stronę główną",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "requirements": {
+      "macos": "macOS 11 Big Sur lub nowszy, Apple Silicon i Intel.",
+      "windows": "Windows 10 lub 11 (64-bit).",
+      "linux": "Współczesne 64-bitowe dystrybucje (AppImage, .deb, .rpm)."
+    },
+    "assets": {
+      "macArm": "Apple Silicon (.dmg)",
+      "macIntel": "Intel (.dmg)",
+      "exe": "Instalator (.exe)",
+      "msi": "Instalator (.msi)",
+      "appimage": "AppImage",
+      "deb": "Debian / Ubuntu (.deb)",
+      "rpm": "Fedora (.rpm)"
+    },
+    "features": {
+      "native": {
+        "title": "Natywne okno",
+        "description": "Osobna aplikacja w Docku lub na pasku zadań, bez kart przeglądarki."
+      },
+      "fast": {
+        "title": "Zawsze aktualna",
+        "description": "Aplikacja przy każdym uruchomieniu ładuje najnowszą wersję Mate Chess."
+      },
+      "safe": {
+        "title": "Mała i lekka",
+        "description": "Zbudowana w Tauri – niewielki instalator korzystający z systemowego silnika WebView."
+      }
+    }
+  }
 }
-
-

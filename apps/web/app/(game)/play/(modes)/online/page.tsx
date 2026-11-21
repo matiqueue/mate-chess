@@ -1,6 +1,6 @@
 "use client"
 
-
+import { SERVER_URL } from "@/lib/config"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next"
 import { useSearchParams, useRouter } from "next/navigation"
 import io from "socket.io-client"
 
-const socket = io("http://localhost:4000")
+const socket = io(SERVER_URL)
 
 function Navbar() {
   const { t } = useTranslation()

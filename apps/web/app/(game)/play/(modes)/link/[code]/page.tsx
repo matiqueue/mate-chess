@@ -1,11 +1,12 @@
 "use client"
 
+import { SERVER_URL } from "@/lib/config"
 import { useEffect, useState } from "react"
 import { use } from "react"
 import io from "socket.io-client"
 
 // Inicjalizacja połączenia WebSocket z serwerem
-const socket = io("http://localhost:4000")
+const socket = io(SERVER_URL)
 
 /**
  * Game

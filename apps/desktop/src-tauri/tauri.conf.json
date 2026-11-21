@@ -1,24 +1,28 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Mate Chess",
+  "mainBinaryName": "Mate Chess",
+  "version": "0.2.0",
+  "identifier": "com.matechess.desktop",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "frontendDist": "http://localhost:3000",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:3000"
   },
   "bundle": {
     "active": true,
-    "category": "DeveloperTool",
-    "copyright": "",
+    "category": "BoardGame",
+    "copyright": "© Digital Gods",
+    "shortDescription": "Mate Chess – szachy online, z botem i lokalnie",
+    "longDescription": "Desktopowa wersja Mate Chess – szachy online, z botem i lokalnie. Aplikacja ładuje wersję webową z https://matechess.vercel.app.",
     "targets": "all",
-    "externalBin": [],
-    "icon": ["icons/chess-pawn32x32.png", "icons/chess-pawn128x128.png", "icons/chess-pawn64x64.png"],
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
     "windows": {
       "certificateThumbprint": null,
       "digestAlgorithm": "sha256",
       "timestampUrl": ""
     },
-    "longDescription": "",
     "macOS": {
       "entitlements": null,
       "exceptionDomain": "",
@@ -26,35 +30,31 @@
       "providerShortName": null,
       "signingIdentity": null
     },
-    "resources": [],
-    "shortDescription": "",
     "linux": {
       "deb": {
         "depends": []
       }
     }
   },
-  "productName": "Mate Chess",
-  "mainBinaryName": "Mate Chess",
-  "version": "0.2.0",
-  "identifier": "com.matechess.desktop",
   "plugins": {},
   "app": {
     "windows": [
       {
-        "fullscreen": true,
-        "height": 600,
-        "resizable": true,
+        "label": "main",
         "title": "Mate Chess",
-        "transparent": true,
-        "width": 800,
-        "decorations": false,
-        "useHttpsScheme": true
+        "width": 1280,
+        "height": 820,
+        "minWidth": 960,
+        "minHeight": 640,
+        "center": true,
+        "resizable": true,
+        "backgroundColor": "#09090b",
+        "useHttpsScheme": true,
+        "create": false
       }
     ],
     "security": {
       "csp": null
-    },
-    "macOSPrivateApi": true
+    }
   }
 }
