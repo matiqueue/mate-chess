@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+# Workflow tylko buduje aplikację i wrzuca artefakty – wystarczy odczyt repozytorium
+permissions:
+  contents: read
+
 # Sekrety ustaw w: Settings → Secrets and variables → Actions
 env:
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
