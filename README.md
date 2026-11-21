@@ -6,6 +6,8 @@
   <em>"Graj, analizuj, ucz się – rozwijaj swoje szachowe umiejętności!"</em>
 
   <p>
+    🏠 <a href="https://getmatechess.vercel.app"><strong>Strona projektu</strong></a>
+    &nbsp;·&nbsp;
     🌐 <a href="https://matechess.vercel.app"><strong>Zagraj w przeglądarce</strong></a>
     &nbsp;·&nbsp;
     💻 <a href="https://matechess.vercel.app/download"><strong>Pobierz aplikację desktopową</strong></a>
@@ -150,6 +152,12 @@ pnpm dev --filter=web
 pnpm dev --filter=server
 ```
 
+- **Strona-wizytówka (landing) na porcie 3002**
+
+```bash
+pnpm dev --filter=landing
+```
+
 - **Panel admina na porcie 3001**
 
 ```bash
@@ -191,6 +199,7 @@ Najważniejsze zmienne środowiskowe (poza kluczami z plików `.env.example`):
 ## 🚢 Wdrożenie, CI i wydania
 
 - **Web (Vercel)** – projekt `mate-chess` (katalog `apps/web`) jest podpięty do repozytorium. Każdy push na `main` wdraża produkcję na [matechess.vercel.app](https://matechess.vercel.app), a każdy pull request dostaje własny podgląd. Zmienne środowiskowe (Clerk, MongoDB) ustawia się w ustawieniach projektu na Vercelu. Build jest pomijany (`turbo-ignore`), gdy zmiana nie dotyczy aplikacji web.
+- **Strona-wizytówka (Vercel)** – projekt `mate-chess-landing` (katalog `apps/landing`) wdrażany tak samo z `main` na [getmatechess.vercel.app](https://getmatechess.vercel.app). Wersja polska jest pod `/`, angielska pod `/en`. Przycisk „Pobierz” bierze instalator dla systemu odwiedzającego z najnowszego wydania desktopowego, a „Zagraj teraz” prowadzi do aplikacji web.
 - **CI** (`.github/workflows/ci.yml`) – przy każdym PR i pushu na `main`: sprawdzenie typów, lint, testy silnika oraz build admina, serwera i serwisu błędów.
 - **Aplikacja desktopowa** (`.github/workflows/release.yml`) – po zmianach w `apps/desktop` na `main` (lub ręcznie z zakładki Actions) buduje instalatory dla macOS (Apple Silicon i Intel), Windows i Linuksa i publikuje je jako wydanie `desktop-v<wersja>` w [GitHub Releases](https://github.com/matiqueue/mate-chess/releases). Strona [/download](https://matechess.vercel.app/download) automatycznie pokazuje pliki z najnowszego wydania. Przed nowym wydaniem podbij `version` w `apps/desktop/src-tauri/tauri.conf.json`.
 - **Dependabot** (`.github/dependabot.yml`) – cotygodniowe, zgrupowane aktualizacje zależności npm oraz comiesięczne dla Rust i GitHub Actions.
@@ -436,6 +445,13 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
 ---
 
 **📱 Aplikacje (`apps`):**
+
+### 0. Landing - `apps/landing`
+
+- Strona-wizytówka projektu (Next.js 16, statyczna z odświeżaniem co 10 minut)
+- `app/(pl)` i `app/(en)/en` – wersje językowe (osobne root layouty z atrybutem `lang`)
+- `components/landing.tsx` – sekcje strony, `lib/i18n.ts` – teksty PL/EN
+- `public/screens/` – prawdziwe zrzuty ekranu aplikacji web i desktopowej
 
 ### 1.Admin - `apps/admin`
 
