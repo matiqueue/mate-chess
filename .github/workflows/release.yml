@@ -1,31 +1,56 @@
-name: Build Tauri + Next.js Desktop App
+name: Desktop release
 
+# Buduje aplikację desktopową (Tauri) na macOS, Windows i Linux i publikuje ją w GitHub Releases.
+# Strona https://matechess.vercel.app/download pobiera listę plików z najnowszego takiego wydania.
+# Wersję wydania bierzemy z apps/desktop/src-tauri/tauri.conf.json – podbij ją przed kolejnym wydaniem.
 on:
   push:
     branches:
       - main
+    paths:
+      - "apps/desktop/**"
+      - ".github/workflows/release.yml"
+  workflow_dispatch:
 
-# Workflow tylko buduje aplikację i wrzuca artefakty – wystarczy odczyt repozytorium
 permissions:
   contents: read
 
-# Sekrety ustaw w: Settings → Secrets and variables → Actions
-env:
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-  CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-  NEXT_PUBLIC_ADMIN_USERNAME: ${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
-  NEXT_PUBLIC_ADMIN_PASSWORD: ${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
+concurrency:
+  group: desktop-release
+  cancel-in-progress: false
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-22.04
+  build:
+    name: Build (${{ matrix.name }})
+    permissions:
+      contents: write # tworzenie wydania i dodawanie plików
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS Apple Silicon
+            platform: macos-14
+            args: --target aarch64-apple-darwin
+            rust-targets: aarch64-apple-darwin
+          - name: macOS Intel
+            platform: macos-14
+            args: --target x86_64-apple-darwin
+            rust-targets: x86_64-apple-darwin
+          - name: Windows
+            platform: windows-latest
+            args: ""
+            rust-targets: ""
+          - name: Linux
+            platform: ubuntu-22.04
+            args: ""
+            rust-targets: ""
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install system dependencies (Tauri 2)
+      - name: Install system dependencies (Linux)
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
@@ -41,86 +66,30 @@ jobs:
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+
+      - name: Cache Rust build
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri -> target
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --filter desktop
 
-      - name: Add environment variables
-        run: pnpm env:setup
-
-      - name: Build application
-        run: pnpm build
-
-      - name: Archive Linux build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Build and publish desktop app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: mate-chess-linux
-          path: apps/desktop/src-tauri/target/release/bundle/
+          projectPath: apps/desktop
+          tauriScript: pnpm tauri
+          args: ${{ matrix.args }}
+          tagName: desktop-v__VERSION__
+          releaseName: Mate Chess Desktop v__VERSION__
+          releaseBody: |
+            Aplikacja desktopowa Mate Chess v__VERSION__.
 
-  build-windows:
-    runs-on: windows-2022
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-          cache: pnpm
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-pc-windows-msvc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Add environment variables
-        run: pnpm env:setup
-
-      - name: Build application
-        run: pnpm build
-
-      - name: Archive Windows build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: mate-chess-windows
-          path: apps/desktop/src-tauri/target/release/bundle/
-
-  build-macos:
-    runs-on: macos-14
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-          cache: pnpm
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Add environment variables
-        run: pnpm env:setup
-
-      - name: Build application
-        run: pnpm build
-
-      - name: Archive macOS build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: mate-chess-macos
-          path: apps/desktop/src-tauri/target/release/bundle/
+            Pobierz instalator dla swojego systemu poniżej albo ze strony https://matechess.vercel.app/download
+          releaseDraft: false
+          prerelease: false

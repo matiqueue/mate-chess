@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # Zależności JS całego monorepo (pnpm workspace)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # Zależności Rust aplikacji desktopowej
+  - package-ecosystem: cargo
+    directory: /apps/desktop/src-tauri
+    schedule:
+      interval: monthly
+    groups:
+      cargo:
+        patterns:
+          - "*"
+
+  # Wersje akcji w workflowach GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns:
+          - "*"
