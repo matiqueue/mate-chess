@@ -2,7 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // Używamy env_logger do logowania
-use tauri::Manager;
 use log::{info, error};
 
 fn main() {
@@ -12,7 +11,7 @@ fn main() {
     info!("Aplikacja Tauri uruchomiona!");
 
     if let Err(e) = tauri::Builder::default()
-        .setup(|app| {
+        .setup(|_app| {
             info!("Konfiguracja aplikacji...");
             // Możesz dodać więcej ustawień tutaj, jeżeli trzeba
             Ok(())

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, type TargetAndTransition } from "framer-motion"
 import { Star, Crown, ArrowRight, User } from "lucide-react"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
@@ -45,7 +45,7 @@ const item = {
  * @remarks
  * Autor: nasakrator i matiqueue
  */
-const floatingAnimation = {
+const floatingAnimation: TargetAndTransition = {
   y: [0, 5, 0],
   transition: { duration: 1.5, repeat: Infinity, repeatType: "reverse" as const, ease: "easeInOut" },
 }

@@ -1,52 +1,45 @@
 {
-  "$schema": "../../web/node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "http://localhost:3000",
-    "distDir": "../../web//.next"
+    "frontendDist": "http://localhost:3000",
+    "devUrl": "http://localhost:3000"
   },
-  "package": {
-    "productName": "Mate Chess",
-    "version": "0.1.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false
+  "bundle": {
+    "active": true,
+    "category": "DeveloperTool",
+    "copyright": "",
+    "targets": "all",
+    "externalBin": [],
+    "icon": ["icons/chess-pawn32x32.png", "icons/chess-pawn128x128.png", "icons/chess-pawn64x64.png"],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "bundle": {
-      "active": true,
-      "category": "DeveloperTool",
-      "copyright": "",
+    "longDescription": "",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
+    },
+    "resources": [],
+    "shortDescription": "",
+    "linux": {
       "deb": {
         "depends": []
-      },
-      "externalBin": [],
-      "icon": ["icons/chess-pawn32x32.png", "icons/chess-pawn128x128.png", "icons/chess-pawn64x64.png"],
-      "identifier": "com.matechess.pl",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-      "resources": [],
-      "shortDescription": "",
-      "targets": "all",
-      "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
       }
-    },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
+    }
+  },
+  "productName": "Mate Chess",
+  "mainBinaryName": "Mate Chess",
+  "version": "0.2.0",
+  "identifier": "com.matechess.pl",
+  "plugins": {},
+  "app": {
     "windows": [
       {
         "fullscreen": true,
@@ -55,8 +48,13 @@
         "title": "Mate Chess",
         "transparent": true,
         "width": 800,
-        "decorations": false
+        "decorations": false,
+        "useHttpsScheme": true
       }
-    ]
+    ],
+    "security": {
+      "csp": null
+    },
+    "macOSPrivateApi": true
   }
 }

@@ -107,7 +107,12 @@ export function ErrorContextProvider({ children }: { children: ReactNode }) {
     return () => {
       console.error = originalConsoleError
       console.warn = originalConsoleWarn
-      if (wsRef.current) wsRef.current.close()
+      const ws = wsRef.current
+      if (ws) {
+        // Jeśli połączenie jeszcze się nawiązuje, zamknij je po otwarciu (unika ostrzeżenia w React Strict Mode)
+        if (ws.readyState === WebSocket.CONNECTING) ws.onopen = () => ws.close()
+        else ws.close()
+      }
     }
   }, [])
 

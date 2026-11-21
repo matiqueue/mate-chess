@@ -1,5 +1,5 @@
 # Etap 1: Zainstaluj zależności i zbuduj aplikację
-FROM node:20 AS builder
+FROM node:24 AS builder
 
 WORKDIR /mate-chess
 
@@ -9,7 +9,7 @@ COPY apps/web/package.json apps/web/
 COPY packages ./packages
 
 # Włącz i przygotuj pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.6.5 --activate
 
 # Instaluj zależności (cache-friendly)
 RUN pnpm install
@@ -21,12 +21,12 @@ COPY . .
 RUN pnpm --filter web build
 
 # Etap 2: Obraz produkcyjny
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 
 WORKDIR /mate-chess
 
 # Włącz pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.6.5 --activate
 
 # Skopiuj artefakty z buildera
 COPY --from=builder /mate-chess/apps/web/.next .next

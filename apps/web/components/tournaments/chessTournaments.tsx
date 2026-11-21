@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, type TargetAndTransition } from "framer-motion"
 import { ChevronLeft, ChevronRight, Users, Calendar, RotateCcw } from "lucide-react"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
@@ -86,7 +86,7 @@ const tournaments: Tournament[] = [
   },
 ]
 
-const floatingAnimation = {
+const floatingAnimation: TargetAndTransition = {
   y: [0, 5, 0],
   transition: {
     duration: 1.5,

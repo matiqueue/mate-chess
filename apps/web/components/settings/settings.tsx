@@ -30,7 +30,11 @@ import { useUser } from "@clerk/nextjs"
  * @source Własna implementacja
  */
 export default function SettingsPage() {
-  const { theme, setTheme } = useTheme()
+  const { theme: rawTheme, setTheme } = useTheme()
+  // next-themes zna motyw dopiero w przeglądarce – do czasu zamontowania renderujemy wariant domyślny (unika błędu hydratacji)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const theme = mounted ? rawTheme : undefined
   const [boardView, setBoardView] = useState<"2D" | "3D" | undefined>(undefined)
   const [backgroundMusic, setBackgroundMusic] = useState(false)
   const [gameSounds, setGameSounds] = useState(true)

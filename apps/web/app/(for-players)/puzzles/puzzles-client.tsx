@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group
 import { Label } from "@workspace/ui/components/label"
 import { useTheme } from "next-themes"
 import { cn } from "@workspace/ui/lib/utils"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { loadQuizProgress, saveQuizProgress, resetQuizProgress } from "@/utils/quizStorage"
 
 /**
@@ -171,7 +171,7 @@ const chessQuotes: Quote[] = [
 
 const chessFacts: string[] = ["chessQuiz.facts.0", "chessQuiz.facts.1", "chessQuiz.facts.2", "chessQuiz.facts.3", "chessQuiz.facts.4"]
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -186,7 +186,7 @@ const containerVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,

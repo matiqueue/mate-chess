@@ -113,10 +113,18 @@ Aplikacja została zbudowana w oparciu o nowoczesny stack technologiczny:
 git clone https://github.com/matiqueue/mate-chess.pl.git
 ```
 
-2️⃣ **Instalacja zależności:**
+**Wymagania:** Node.js ≥ 20.9 (zalecany 24 LTS), pnpm 10, a dla aplikacji desktopowej – Rust (stable) i Tauri 2.
+
+2️⃣ **Instalacja zależności i zmiennych środowiskowych:**
 
 ```bash
 pnpm install
+```
+
+Klucze (Clerk, MongoDB, Groq, dane admina) nie są trzymane w repozytorium. Ustaw je jako zmienne środowiskowe i uruchom skrypt, który utworzy pliki `.env` (istniejących nie nadpisuje bez `--force`), albo uzupełnij je ręcznie na podstawie plików `.env.example` w `apps/web`, `apps/admin` i `apps/errors`:
+
+```bash
+pnpm env:setup
 ```
 
 3️⃣ **Uruchomienie aplikacji:**
@@ -124,13 +132,37 @@ pnpm install
 - **Frontend (Web) na porcie 3000**
 
 ```bash
-pnpm dev --filter=apps/web
+pnpm dev --filter=web
 ```
 
 - **Backend (Server) na porcie 4000**
 
 ```bash
-pnpm dev --filter=apps/server
+pnpm dev --filter=server
+```
+
+- **Panel admina na porcie 3001**
+
+```bash
+pnpm dev --filter=admin
+```
+
+- **Serwis logów błędów (WebSocket) na porcie 3005**
+
+```bash
+pnpm dev --filter=errors
+```
+
+- **Aplikacja desktopowa (Tauri 2)** – ładuje aplikację web z `http://localhost:3000`, więc web musi być uruchomiony
+
+```bash
+pnpm dev --filter=desktop
+```
+
+4️⃣ **Build całego monorepo** (web, admin, server, errors oraz paczka desktopowa `.app`/`.dmg`):
+
+```bash
+pnpm build
 ```
 
 ---
@@ -626,7 +658,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
   - `en.json` – tłumaczenie angielska
   - `pl.json` – tłumaczenie polska
   - `ru.json` – tłumaczenie rosyjska
-- `middleware.ts` – middleware aplikacji
+- `proxy.ts` – proxy (dawniej middleware) aplikacji – Next.js 16
 - `next-env.d.ts` – definicje typów dla Next.js
 - `next.config.mjs` – konfiguracja Next.js
 - `package.json` – zależności i skrypty aplikacji webowej

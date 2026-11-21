@@ -37,3 +37,5 @@ npm-debug.log*
 
 #IDE
 .idea
+# Clerk (lokalne klucze keyless i telemetria – nie commitować)
+**/.clerk/

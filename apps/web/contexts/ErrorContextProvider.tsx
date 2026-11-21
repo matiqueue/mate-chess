@@ -136,7 +136,12 @@ export function ErrorContextProvider({ children }: ErrorContextProviderProps) {
     return () => {
       console.error = originalConsoleError // Przywracanie oryginalnej funkcji
       console.warn = originalConsoleWarn // Przywracanie oryginalnej funkcji
-      if (wsRef.current) wsRef.current.close() // Zamykanie połączenia WebSocket
+      const ws = wsRef.current
+      if (ws) {
+        // Zamykanie połączenia WebSocket (jeśli jeszcze się łączy, zamknij po otwarciu – unika ostrzeżenia w React Strict Mode)
+        if (ws.readyState === WebSocket.CONNECTING) ws.onopen = () => ws.close()
+        else ws.close()
+      }
     }
   }, []) // Puste zależności – uruchamia się raz przy montowaniu
 

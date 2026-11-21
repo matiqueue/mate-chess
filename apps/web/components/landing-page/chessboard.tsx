@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react" // Podstawowe hooki R
 import * as THREE from "three" // Biblioteka Three.js do grafiki 3D
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js" // Loader modeli GLTF
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js" // Kontrolki orbitalne kamery
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js" // Loader tekstur HDR
+import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js" // Loader tekstur HDR
 import styles from "@/styles/landing-page/chessboard.module.css" // Style CSS dla komponentu
 import Button from "@/components/landing-page/button" // Komponent przycisku
 import Navbar from "@/components/landing-page/navbar" // Komponent nawigacji
@@ -266,7 +266,7 @@ const Chessboard: React.FC = () => {
     window.addEventListener("resize", handleResize)
 
     // Ładowanie tła HDR
-    const textureLoader = new RGBELoader()
+    const textureLoader = new HDRLoader()
     textureLoader.load("/backgrounds/finalBackground.hdr", (texture: THREE.Texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping
       const backgroundGeometry = new THREE.SphereGeometry(500, 32, 32)

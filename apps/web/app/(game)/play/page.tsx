@@ -2,10 +2,10 @@
 
 /* eslint-disable @next/next/no-server-import-in-page */
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, type TargetAndTransition } from "framer-motion"
 import { Link2, Server, ArrowRight, Users } from "lucide-react"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next"
 import { v4 as uuidv4 } from "uuid"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@workspace/ui/components/dialog" // Import komponentów dialogu z ShadCN
 import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group"
-import {Circle as ChessPawn} from "lucide-react";
+import { Circle as ChessPawn } from "lucide-react"
 
 /** Animacja kontenera */
 const container = {
@@ -35,7 +35,7 @@ const item = {
 }
 
 /** Animacja unoszenia elementu */
-const floatingAnimation = {
+const floatingAnimation: TargetAndTransition = {
   y: [0, 5, 0],
   transition: { duration: 1.5, repeat: Infinity, repeatType: "reverse" as "reverse", ease: "easeInOut" },
 }
@@ -75,7 +75,7 @@ export default function GameModeSelector() {
   const handleCreateLinkLobby = async () => {
     const player = user
       ? { id: user.id, name: user.firstName || "User", avatar: user.imageUrl || "", isGuest: false }
-      : { id: localStorage.getItem("guestId") || uuidv4(), name: "Guest", avatar: "/default-avatar.png", isGuest: true }
+      : { id: localStorage.getItem("guestId") || uuidv4(), name: "Guest", avatar: "/placeholder.svg", isGuest: true }
 
     if (player.isGuest && !localStorage.getItem("guestId")) {
       localStorage.setItem("guestId", player.id)
@@ -93,7 +93,7 @@ export default function GameModeSelector() {
   const handleJoinLinkLobby = async () => {
     const player = user
       ? { id: user.id, name: user.firstName || "User", avatar: user.imageUrl || "", isGuest: false }
-      : { id: localStorage.getItem("guestId") || uuidv4(), name: "Guest", avatar: "/default-avatar.png", isGuest: true }
+      : { id: localStorage.getItem("guestId") || uuidv4(), name: "Guest", avatar: "/placeholder.svg", isGuest: true }
 
     if (player.isGuest && !localStorage.getItem("guestId")) {
       localStorage.setItem("guestId", player.id)
@@ -330,7 +330,11 @@ export default function GameModeSelector() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={
-                        mode.key === "online" ? handleJoinOnlineLobby : mode.key === "local" ? () => setIsColorDialogOpen(true) : () => router.push(`/play/${mode.key.toLowerCase()}`)
+                        mode.key === "online"
+                          ? handleJoinOnlineLobby
+                          : mode.key === "local"
+                            ? () => setIsColorDialogOpen(true)
+                            : () => router.push(`/play/${mode.key.toLowerCase()}`)
                       }
                       disabled={isOnline && !user}
                     >
@@ -361,16 +365,15 @@ export default function GameModeSelector() {
 
       <Dialog open={isColorDialogOpen} onOpenChange={setIsColorDialogOpen}>
         <DialogContent className="sm:max-w-[425px] rounded-lg shadow-xl bg-opacity-90 bg-background">
-          <div className="flex flex-col space-y-4">     
-            
-          <DialogHeader>
+          <div className="flex flex-col space-y-4">
+            <DialogHeader>
               <DialogTitle>{t("selectColorTitle")}</DialogTitle>
               <DialogDescription>{t("selectColorDesc")}</DialogDescription>
             </DialogHeader>
             <RadioGroup
               value={selectedColor} // Upewniamy się, że wartość jest poprawnie ustawiona
               onValueChange={(value) => {
-                setSelectedColor(value);
+                setSelectedColor(value)
               }}
               className="flex gap-4 justify-center"
             >
@@ -398,7 +401,7 @@ export default function GameModeSelector() {
                 </div>
               </label>
             </RadioGroup>
-            { /* Game type */}    
+            {/* Game type */}
             <DialogHeader>
               <DialogTitle>{t("selectGameType")}</DialogTitle>
               <DialogDescription>{t("selectGameTypeDesc")}</DialogDescription>
@@ -407,7 +410,7 @@ export default function GameModeSelector() {
             <RadioGroup
               value={selectedTimer.toString()} // Upewniamy się, że wartość jest poprawnie ustawiona
               onValueChange={(value) => {
-                setSelectedTimer(parseInt(value));
+                setSelectedTimer(parseInt(value))
               }}
               className="flex gap-4 justify-center"
             >
@@ -440,7 +443,7 @@ export default function GameModeSelector() {
                   }`}
                 >
                   <RadioGroupItem value="120" id="time120" className="sr-only" />
-                    <p>Blitz</p>
+                  <p>Blitz</p>
                 </div>
               </label>
             </RadioGroup>
@@ -452,4 +455,3 @@ export default function GameModeSelector() {
     </ScrollArea>
   )
 }
-
