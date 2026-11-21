@@ -8,7 +8,7 @@ import type { Metadata } from "next"
  * Autor: Jakub Batko
  */
 export const metadata: Metadata = {
-  title: "Chess Openigns | Mate-Chess",
+  title: "Chess Openings | Mate-Chess",
   description: "Learn various openings from best players in history!",
 }
 

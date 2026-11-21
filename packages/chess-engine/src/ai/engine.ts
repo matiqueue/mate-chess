@@ -282,20 +282,21 @@ class ChessAi extends ChessGame {
         let targetPositionNotation: string = ""
         let doesMoveCaptureFig: boolean = false
         const letters = "abcdefgh"
-        switch (extractedMove.charAt(0).toLowerCase()) {
-          case "n":
+        // Notacja SAN: figury wielką literą (N, K, Q, R, B), pionki małą literą kolumny – np. "b6" to pion, a "Bb5" to goniec
+        switch (extractedMove.charAt(0)) {
+          case "N":
             performingFigureType = figureType.knight
             break
-          case "k":
+          case "K":
             performingFigureType = figureType.king
             break
-          case "q":
+          case "Q":
             performingFigureType = figureType.queen
             break
-          case "r":
+          case "R":
             performingFigureType = figureType.rook
             break
-          case "b":
+          case "B":
             performingFigureType = figureType.bishop
             break
           default:
@@ -316,15 +317,14 @@ class ChessAi extends ChessGame {
         console.log(extractedMove)
         // console.log(letters)
         // console.log(lts)
-        if (letters.includes(lts)) {
-          targetPositionNotation += lts
-        } else {
-          console.error("something went wrong")
-        }
+        if (!letters.includes(lts)) continue // ruch spoza obsługiwanej notacji (np. roszada "O-O")
+        targetPositionNotation += lts
 
         if (nums > 0 && nums <= 8) {
           targetPositionNotation += nums
         }
+        // Pomijamy ruchy, których nie da się sparsować (np. roszady "O-O" czy ruchy z dookreśleniem "Nbd7")
+        if (targetPositionNotation.length !== 2) continue
         console.log(
           "possible moves: ",
           this.board.findValidMovesWithGivenArguments(this.aiColor, performingFigureType, doesMoveCaptureFig, targetPositionNotation),

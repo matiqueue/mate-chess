@@ -357,7 +357,8 @@
   "main-footer": {
     "play": "Играть",
     "learn": "Учиться",
-    "community": "Сообщество"
+    "community": "Сообщество",
+    "download": "Скачать"
   },
   "seo": {
     "puzzles": {
@@ -367,14 +368,14 @@
   },
   "quiz": {
     "loading": "Загрузка шахматных головоломок...",
-    "questionLabel": "Вопрос {current} из {total}",
+    "questionLabel": "Вопрос {{current}} из {{total}}",
     "checkAnswer": "Проверить ответ",
     "nextQuestion": "Следующий вопрос",
     "seeResults": "Посмотреть результаты",
     "previous": "Предыдущий",
     "explanation": "Объяснение:",
     "quizCompleted": "Викторина завершена!",
-    "score": "Вы набрали {score} из {total}",
+    "score": "Вы набрали {{score}} из {{total}}",
     "perfect": "Идеальный результат! Вы шахматный мастер!",
     "great": "Отличная работа! У вас отличные шахматные знания.",
     "good": "Хорошая попытка! Продолжайте учиться, чтобы улучшить свои шахматные знания.",
@@ -590,5 +591,70 @@
   "selectColorTitle": "Выберите цвет",
   "selectColorDesc": "Выберите, какими фигурами вы будете играть!",
   "selectGameType": "Выберите режим игры!",
-  "selectGameTypeDesc": "Выберите продолжительность игры!"
+  "selectGameTypeDesc": "Выберите продолжительность игры!",
+  "downloadApp": "Приложение для ПК",
+  "comingSoon": {
+    "badge": "Скоро",
+    "description": "Мы работаем над этим разделом. Загляните позже – а пока сыграйте партию или решите несколько задач.",
+    "back": "На главную",
+    "pages": {
+      "social": "Сообщество",
+      "clubs": "Клубы",
+      "forums": "Форумы",
+      "friends": "Друзья",
+      "members": "Участники",
+      "news": "Новости",
+      "watch": "Смотреть партии"
+    }
+  },
+  "downloadPage": {
+    "badge": "Приложение для ПК",
+    "version": "Версия {{version}}",
+    "title": "Mate Chess на вашем компьютере",
+    "subtitle": "Играйте в отдельном окне на macOS, Windows и Linux – с тем же аккаунтом, режимами и настройками, что и в веб-версии.",
+    "downloadFor": "Скачать для {{os}}",
+    "seeReleases": "Смотреть релизы",
+    "playInBrowser": "Играть в браузере",
+    "released": "Выпущено {{date}}",
+    "allPlatforms": "Все платформы",
+    "allReleases": "Все релизы на GitHub",
+    "yourSystem": "Ваша система",
+    "comingSoon": "Скоро",
+    "alreadyDesktop": "Вы уже используете приложение для ПК.",
+    "notAvailable": "Первый релиз для ПК готовится. Установщики появятся здесь автоматически после публикации в GitHub Releases.",
+    "backHome": "На главную",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "requirements": {
+      "macos": "macOS 11 Big Sur или новее, Apple Silicon и Intel.",
+      "windows": "Windows 10 или 11 (64-бит).",
+      "linux": "Современные 64-битные дистрибутивы (AppImage, .deb, .rpm)."
+    },
+    "assets": {
+      "macArm": "Apple Silicon (.dmg)",
+      "macIntel": "Intel (.dmg)",
+      "exe": "Установщик (.exe)",
+      "msi": "Установщик (.msi)",
+      "appimage": "AppImage",
+      "deb": "Debian / Ubuntu (.deb)",
+      "rpm": "Fedora (.rpm)"
+    },
+    "features": {
+      "native": {
+        "title": "Отдельное окно",
+        "description": "Отдельное приложение в Dock или на панели задач, без вкладок браузера."
+      },
+      "fast": {
+        "title": "Всегда актуально",
+        "description": "При каждом запуске приложение загружает последнюю версию Mate Chess."
+      },
+      "safe": {
+        "title": "Лёгкое и компактное",
+        "description": "Создано на Tauri – небольшой установщик, использующий системный WebView."
+      }
+    }
+  }
 }

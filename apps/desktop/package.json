@@ -2,10 +2,11 @@
   "name": "desktop",
   "private": true,
   "scripts": {
-    "dev": "cd ../web && pnpm tauri dev",
-    "build": "cd ../web && pnpm tauri build"
+    "dev": "tauri dev",
+    "build": "tauri build"
   },
-  "dependencies": {
-    "tauri": "^0.15.0"
+  "version": "0.2.0",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.6"
   }
 }

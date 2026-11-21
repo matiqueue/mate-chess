@@ -128,7 +128,7 @@ export default function ChessLessons() {
     description: t("lessonPage.recomendedLesson.description"),
     buttonJoin: t("lessonPage.recomendedLesson.buttonJoin"),
     buttonRead: t("lessonPage.recomendedLesson.buttonRead"),
-    image: "logo/lessonsLogo.webp",
+    image: "/logo/lessonsLogo.webp",
     instructor: {
       name: t("lessonPage.recomendedLesson.instructor.name"),
       avatar: "/placeholder.svg?height=50&width=50",
@@ -313,10 +313,8 @@ export default function ChessLessons() {
               <div className="mb-4">
                 <div className="flex flex-wrap gap-2">
                   {featuredLesson.topics.map((topic, index) => (
-                    <motion.div whileHover={{ scale: 1.06 }} transition={{ duration: 0.2 }}>
-                      <Badge key={index} variant="secondary">
-                        {topic}
-                      </Badge>
+                    <motion.div key={index} whileHover={{ scale: 1.06 }} transition={{ duration: 0.2 }}>
+                      <Badge variant="secondary">{topic}</Badge>
                     </motion.div>
                   ))}
                 </div>
@@ -330,12 +328,10 @@ export default function ChessLessons() {
                 </h4>
                 <ul className="grid grid-cols-1 lg:grid-cols-2 gap-1">
                   {featuredLesson.learningPoints.map((point, index) => (
-                    <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
-                      <li key={index} className="flex items-start">
-                        <CheckCircle2 className="h-4 w-4 mr-2 text-primary mt-0.5 shrink-0" />
-                        <span className="text-sm">{point}</span>
-                      </li>
-                    </motion.div>
+                    <motion.li key={index} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }} className="flex items-start">
+                      <CheckCircle2 className="h-4 w-4 mr-2 text-primary mt-0.5 shrink-0" />
+                      <span className="text-sm">{point}</span>
+                    </motion.li>
                   ))}
                 </ul>
               </div>

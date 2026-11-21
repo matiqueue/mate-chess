@@ -30,7 +30,11 @@ import { useUser } from "@clerk/nextjs"
  * @source Własna implementacja
  */
 export default function SettingsPage() {
-  const { theme, setTheme } = useTheme()
+  const { theme: rawTheme, setTheme } = useTheme()
+  // next-themes zna motyw dopiero w przeglądarce – do czasu zamontowania renderujemy wariant domyślny (unika błędu hydratacji)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const theme = mounted ? rawTheme : undefined
   const [boardView, setBoardView] = useState<"2D" | "3D" | undefined>(undefined)
   const [backgroundMusic, setBackgroundMusic] = useState(false)
   const [gameSounds, setGameSounds] = useState(true)
@@ -68,7 +72,7 @@ export default function SettingsPage() {
   }, [backgroundMusic])
 
   return (
-    <div className="container mx-auto py-6 space-y-8">
+    <div className="container mx-auto max-w-4xl py-6 space-y-8">
       <div className="flex flex-col space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
         <p className="text-muted-foreground">Manage your account settings and preferences.</p>
@@ -116,7 +120,7 @@ export default function SettingsPage() {
                   </CardHeader>
                   <CardContent>
                     <RadioGroup
-                      defaultValue={boardView}
+                      value={boardView ?? ""}
                       onValueChange={(value) => setBoardView(value as "2D" | "3D")}
                       className="grid grid-cols-1 md:grid-cols-2 gap-4"
                     >

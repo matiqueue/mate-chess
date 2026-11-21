@@ -1,5 +1,7 @@
 import { Providers } from "@/components/providers" // Import komponentu Providers
 import { Metadata } from "next" // Import typu Metadata
+import { desktopFlagScript } from "@/lib/desktop"
+import { DesktopWindowControls } from "@/components/desktop/window-controls"
 
 /**
  * Metadane aplikacji.
@@ -9,7 +11,7 @@ import { Metadata } from "next" // Import typu Metadata
  */
 export const metadata: Metadata = {
   title: "Mate Chess",
-  description: "A chess application",
+  description: "Play chess online, against a bot or locally – Mate Chess.",
 }
 
 /**
@@ -27,8 +29,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: desktopFlagScript }} />
+      </head>
       <body>
         <Providers>{children}</Providers>
+        <DesktopWindowControls />
       </body>
     </html>
   )

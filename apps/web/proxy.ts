@@ -1,4 +1,4 @@
-// middleware.ts
+// proxy.ts (Next.js 16: dawniej middleware.ts)
 import { clerkMiddleware } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
@@ -32,7 +32,9 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // Ochrona ścieżek /play/online oraz podścieżek: jeśli użytkownik nie jest zalogowany, przekieruj na "/sign-in"
-  if (pathname.startsWith("/play/online") && !userId) {
+  // Strona profilu (/profile, bez publicznych statystyk /profile/stats) wymaga zalogowania – <UserProfile/> nie działa bez użytkownika
+  const isOwnProfile = pathname === "/profile" || (pathname.startsWith("/profile/") && !pathname.startsWith("/profile/stats"))
+  if ((pathname.startsWith("/play/online") || isOwnProfile) && !userId) {
     return NextResponse.redirect(new URL("/sign-in", req.url))
   }
 

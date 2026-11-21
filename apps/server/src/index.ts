@@ -17,9 +17,21 @@ import chalk from "chalk"
 const app = express()
 const server = http.createServer(app)
 
+/**
+ * Dozwolone adresy frontendu dla Socket.io – lokalnie web (3000) i admin (3001),
+ * a po wdrożeniu dodatkowe adresy z CORS_ORIGINS (rozdzielone przecinkami).
+ */
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  ...(process.env.CORS_ORIGINS?.split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean) ?? []),
+]
+
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true, // Dodaj, jeśli używasz ciasteczek lub autoryzacji
   },
@@ -88,6 +100,8 @@ setupSockets(io)
  * Inicjalizacja serwera HTTP na porcie 4000.
  * Po uruchomieniu logowany jest komunikat o starcie serwera.
  */
-server.listen(4000, () => {
-  console.log(chalk.bgGreen.black.bold(" [SERVER] ") + chalk.green(" Serwer uruchomiony na porcie 4000 "))
+const PORT = Number(process.env.PORT) || 4000
+
+server.listen(PORT, () => {
+  console.log(chalk.bgGreen.black.bold(" [SERVER] ") + chalk.green(` Serwer uruchomiony na porcie ${PORT} `))
 })

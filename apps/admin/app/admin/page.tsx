@@ -1,5 +1,6 @@
 "use client"
 
+import { SERVER_URL } from "@/lib/config"
 import { useState, useEffect } from "react" // Import hooków useState i useEffect
 import { useRouter } from "next/navigation" // Import hooka useRouter
 import io, { Socket } from "socket.io-client" // Import biblioteki socket.io-client
@@ -52,7 +53,7 @@ export default function AdminPage() {
     // Jeśli wybrana zakładka to "logs", ustanawiamy połączenie WebSocket z serwerem logów.
     if (activeTab === "logs") {
       // Inicjalizacja nowego połączenia socket.io z serwerem logów.
-      const newSocket = io("http://localhost:4000/admin-logs", {
+      const newSocket = io(`${SERVER_URL}/admin-logs`, {
         reconnection: true,
         transports: ["websocket"],
       })

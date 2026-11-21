@@ -1,12 +1,13 @@
 "use client"
 
+import { SERVER_URL } from "@/lib/config"
 import ChessBoardContainer from "@/components/game/chessboard-container"
 import { useEffect, useState } from "react"
 import { use } from "react"
 import io from "socket.io-client"
 
 // Inicjalizacja połączenia WebSocket z serwerem
-const socket = io("http://localhost:4000")
+const socket = io(SERVER_URL)
 
 /**
  * Game
@@ -53,7 +54,7 @@ export default function Game({ params }: { params: Promise<{ id: string }> }) {
   }
 
   const fixedClerkDataFertcher = (): boolean => {
-    const response = fetch("http://localhost:4000/api/clerk", {
+    const response = fetch(`${SERVER_URL}/api/clerk`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

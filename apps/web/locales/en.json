@@ -71,7 +71,6 @@
   "playMusic": "Play Music",
   "audioPlaybackError": "Error playing music:",
   "btnPlayMateChess": "Play MATE-CHESS",
-
   "textTab": {
     "mateChess": {
       "title": "Mate-Chess",
@@ -358,7 +357,8 @@
   "main-footer": {
     "play": "Play",
     "learn": "Learn",
-    "community": "Community"
+    "community": "Community",
+    "download": "Download"
   },
   "seo": {
     "puzzles": {
@@ -368,14 +368,14 @@
   },
   "quiz": {
     "loading": "Loading Chess Puzzles...",
-    "questionLabel": "Question {current} of {total}",
+    "questionLabel": "Question {{current}} of {{total}}",
     "checkAnswer": "Check Answer",
     "nextQuestion": "Next Question",
     "seeResults": "See Results",
     "previous": "Previous",
     "explanation": "Explanation:",
     "quizCompleted": "Quiz Completed!",
-    "score": "You scored {score} out of {total}",
+    "score": "You scored {{score}} out of {{total}}",
     "perfect": "Perfect score! You're a chess master!",
     "great": "Great job! You have excellent chess knowledge.",
     "good": "Good effort! Keep studying to improve your chess knowledge.",
@@ -591,5 +591,70 @@
   "selectColorTitle": "Choose Color",
   "selectColorDesc": "Choose which pieces you will play with!",
   "selectGameType": "Select game mode!",
-  "selectGameTypeDesc": "Choose the game duration!"
+  "selectGameTypeDesc": "Choose the game duration!",
+  "downloadApp": "Desktop app",
+  "comingSoon": {
+    "badge": "Coming soon",
+    "description": "We're working on this section. Check back soon – in the meantime play a game or solve some puzzles.",
+    "back": "Back to home",
+    "pages": {
+      "social": "Community",
+      "clubs": "Clubs",
+      "forums": "Forums",
+      "friends": "Friends",
+      "members": "Members",
+      "news": "News",
+      "watch": "Watch games"
+    }
+  },
+  "downloadPage": {
+    "badge": "Desktop app",
+    "version": "Version {{version}}",
+    "title": "Mate Chess on your computer",
+    "subtitle": "Play in a native window on macOS, Windows and Linux – with your account, game modes and settings from the web version.",
+    "downloadFor": "Download for {{os}}",
+    "seeReleases": "See releases",
+    "playInBrowser": "Play in browser",
+    "released": "Released {{date}}",
+    "allPlatforms": "All platforms",
+    "allReleases": "All releases on GitHub",
+    "yourSystem": "Your system",
+    "comingSoon": "Coming soon",
+    "alreadyDesktop": "You're already using the desktop app.",
+    "notAvailable": "The first desktop release is being prepared. Installers will appear here automatically once they are published on GitHub Releases.",
+    "backHome": "Back to home",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "requirements": {
+      "macos": "macOS 11 Big Sur or newer, Apple Silicon and Intel.",
+      "windows": "Windows 10 or 11 (64-bit).",
+      "linux": "Modern 64-bit distributions (AppImage, .deb, .rpm)."
+    },
+    "assets": {
+      "macArm": "Apple Silicon (.dmg)",
+      "macIntel": "Intel (.dmg)",
+      "exe": "Installer (.exe)",
+      "msi": "Installer (.msi)",
+      "appimage": "AppImage",
+      "deb": "Debian / Ubuntu (.deb)",
+      "rpm": "Fedora (.rpm)"
+    },
+    "features": {
+      "native": {
+        "title": "Native window",
+        "description": "A dedicated app in your dock or taskbar, without browser tabs."
+      },
+      "fast": {
+        "title": "Always up to date",
+        "description": "The app loads the latest version of Mate Chess every time you open it."
+      },
+      "safe": {
+        "title": "Small and light",
+        "description": "Built with Tauri – a tiny installer that uses your system webview."
+      }
+    }
+  }
 }

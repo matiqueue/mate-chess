@@ -1,7 +1,7 @@
 "use client"
 /* eslint-disable @next/next/no-server-import-in-page */
 
-
+import { SERVER_URL } from "@/lib/config"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -18,7 +18,7 @@ import io from "socket.io-client"
 import { useTranslation } from "react-i18next"
 
 // Inicjalizacja połączenia WebSocket z serwerem
-const socket = io("http://localhost:4000")
+const socket = io(SERVER_URL)
 
 /**
  * Navbar
@@ -201,7 +201,7 @@ export default function LinkLobby() {
 
   const handleStartGame = async () => {
     const myId = user?.id || localStorage.getItem("guestId")
-    const res = await fetch("http://localhost:4000/api/start-game", {
+    const res = await fetch(`${SERVER_URL}/api/start-game`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ lobbyId, creatorId: myId }),
@@ -212,7 +212,7 @@ export default function LinkLobby() {
 
   const handleKickPlayer = async (playerId: string) => {
     const myId = user?.id || localStorage.getItem("guestId")
-    const res = await fetch("http://localhost:4000/api/kick-player", {
+    const res = await fetch(`${SERVER_URL}/api/kick-player`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ lobbyId, playerId, creatorId: myId }),

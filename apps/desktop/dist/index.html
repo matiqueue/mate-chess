@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mate Chess</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #09090b;
+        --card: #18181b;
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #fafafa;
+        --muted: #a1a1aa;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(ellipse at 50% 35%, rgba(255, 255, 255, 0.08), transparent 60%),
+          var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        user-select: none;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 24px;
+        text-align: center;
+        animation: fade-in 0.5s ease-out both;
+      }
+      .logo {
+        width: 132px;
+        height: 132px;
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 24px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-top-color: var(--text);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      .error {
+        display: none;
+        max-width: 380px;
+        padding: 20px 24px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card);
+      }
+      .error p {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .error strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text);
+        font-size: 15px;
+      }
+      button {
+        height: 36px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--text);
+        color: var(--bg);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      }
+      button:hover {
+        opacity: 0.85;
+      }
+      body.failed .status {
+        display: none;
+      }
+      body.failed .error {
+        display: block;
+      }
+      .drag {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 44px;
+        z-index: 1;
+      }
+      .controls {
+        position: fixed;
+        top: 14px;
+        right: 16px;
+        z-index: 2;
+        display: none;
+        gap: 8px;
+      }
+      .controls.visible {
+        display: flex;
+      }
+      .controls button {
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+      }
+      .controls.win {
+        top: 0;
+        right: 0;
+        gap: 0;
+      }
+      .controls.win button {
+        width: 44px;
+        height: 32px;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        color: var(--muted);
+      }
+      .controls.win button:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .controls.win button.close:hover {
+        background: #e81123;
+        color: #fff;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="drag" data-tauri-drag-region></div>
+    <div class="controls" id="controls"></div>
+    <main>
+      <svg class="logo" viewBox="100 100 824 824" aria-hidden="true">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3f3f46" />
+            <stop offset="0.55" stop-color="#18181b" />
+            <stop offset="1" stop-color="#09090b" />
+          </linearGradient>
+          <linearGradient id="piece" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" />
+            <stop offset="0.6" stop-color="#e4e4e7" />
+            <stop offset="1" stop-color="#a1a1aa" />
+          </linearGradient>
+        </defs>
+        <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)" />
+        <rect x="101.5" y="101.5" width="821" height="821" rx="185" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="3" />
+        <path
+          fill="url(#piece)"
+          d="M395 700C385 640 405 595 452 562C425 548 392 545 362 528C340 516 326 495 330 470C333 448 345 432 362 420L430 340C448 305 468 275 485 248L498 196C520 214 535 236 540 262C600 280 650 330 668 420C688 520 668 620 640 700Z"
+        />
+        <rect x="368" y="700" width="296" height="40" rx="14" fill="url(#piece)" />
+        <rect x="330" y="752" width="372" height="64" rx="22" fill="url(#piece)" />
+        <path d="M430 388C440 366 462 356 478 360C470 380 452 392 430 388Z" fill="#18181b" />
+      </svg>
+      <h1>Mate Chess</h1>
+      <div class="status"><span class="spinner"></span><span id="status-text">Łączenie z serwerem…</span></div>
+      <div class="error" role="alert">
+        <strong>Nie udało się połączyć</strong>
+        <p>Mate Chess potrzebuje połączenia z internetem. Sprawdź połączenie i spróbuj ponownie – aplikacja połączy się też sama, gdy sieć wróci.</p>
+        <button id="retry" type="button">Spróbuj ponownie</button>
+      </div>
+    </main>
+    <script>
+      // Adres wersji webowej, którą ładuje aplikacja desktopowa
+      const APP_ORIGIN = "https://matechess.vercel.app"
+      const APP_URL = APP_ORIGIN + "/home?desktop=1"
+      let connecting = false
+
+      async function connect() {
+        if (connecting) return
+        connecting = true
+        document.body.classList.remove("failed")
+        try {
+          const controller = new AbortController()
+          const timeout = setTimeout(() => controller.abort(), 10000)
+          await fetch(APP_ORIGIN + "/", { mode: "no-cors", cache: "no-store", signal: controller.signal })
+          clearTimeout(timeout)
+          document.getElementById("status-text").textContent = "Uruchamianie…"
+          window.location.replace(APP_URL)
+        } catch {
+          document.body.classList.add("failed")
+          connecting = false
+        }
+      }
+
+      // Własne przyciski okna (aplikacja nie ma systemowego paska tytułu) – macOS: „światła”, Windows/Linux: ikony
+      const tauri = window.__TAURI_INTERNALS__
+      if (tauri) {
+        const isMac = /mac/i.test(navigator.userAgent)
+        const controls = document.getElementById("controls")
+        const actions = [
+          { cmd: "minimize", label: "Minimize", color: "#febc2e", icon: "M1 5.5h9" },
+          { cmd: "toggle_maximize", label: "Maximize", color: "#28c840", icon: "M1.5 1.5h8v8h-8z" },
+          { cmd: "close", label: "Close", color: "#ff5f57", icon: "M1.5 1.5l8 8M9.5 1.5l-8 8" },
+        ]
+        controls.classList.add("visible")
+        if (!isMac) controls.classList.add("win")
+        for (const action of actions) {
+          const button = document.createElement("button")
+          button.type = "button"
+          button.setAttribute("aria-label", action.label)
+          if (action.cmd === "close") button.classList.add("close")
+          if (isMac) button.style.background = action.color
+          else button.innerHTML = `<svg viewBox="0 0 11 11" width="10" height="10"><path d="${action.icon}" stroke="currentColor" fill="none"/></svg>`
+          button.addEventListener("click", () => tauri.invoke("plugin:window|" + action.cmd, { label: "main" }))
+          controls.appendChild(button)
+        }
+      }
+
+      document.getElementById("retry").addEventListener("click", connect)
+      window.addEventListener("online", connect)
+      connect()
+    </script>
+  </body>
+</html>

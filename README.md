@@ -2,8 +2,16 @@
  
   <img src="/apps/web/public/backgrounds/readmeBg.png" alt="Home Background">
 
-  <h1>♟️ Mate-chess.pl - Twoje centrum szachowe online ♟️</h1>
+  <h1>♟️ Mate-chess - Twoje centrum szachowe online ♟️</h1>
   <em>"Graj, analizuj, ucz się – rozwijaj swoje szachowe umiejętności!"</em>
+
+  <p>
+    🌐 <a href="https://matechess.vercel.app"><strong>Zagraj w przeglądarce</strong></a>
+    &nbsp;·&nbsp;
+    💻 <a href="https://matechess.vercel.app/download"><strong>Pobierz aplikację desktopową</strong></a>
+    &nbsp;·&nbsp;
+    📦 <a href="https://github.com/matiqueue/mate-chess/releases">Wydania</a>
+  </p>
 </div>
 
 ---
@@ -14,21 +22,22 @@
 2. [Funkcjonalności](#-funkcjonalności)
 3. [Technologie i Architektura](#-technologie-i-architektura)
 4. [Instalacja i Uruchomienie](#-instalacja-i-uruchomienie)
-5. [Dokumentacja API](#-dokumentacja-api)
-6. [Specjalne Tryby Gry](#-specjalne-tryby-gry)
-7. [Analiza Partii](#-analiza-partii)
-8. [Roadmapa](#-roadmapa)
-9. [Udział w Konkursie](#-udział-w-konkursie)
-10. [Zespół](#-zespół--autorzy)
-11. [Kontrybucja](#-kontrybucja)
-12. [Licencja](#-licencja)
-13. [Wsparcie i Kontakt](#-wsparcie-i-kontakt)
+5. [Wdrożenie, CI i wydania](#-wdrożenie-ci-i-wydania)
+6. [Dokumentacja API](#-dokumentacja-api)
+7. [Specjalne Tryby Gry](#-specjalne-tryby-gry)
+8. [Analiza Partii](#-analiza-partii)
+9. [Roadmapa](#-roadmapa)
+10. [Udział w Konkursie](#-udział-w-konkursie)
+11. [Zespół](#-zespół--autorzy)
+12. [Kontrybucja](#-kontrybucja)
+13. [Licencja](#-licencja)
+14. [Wsparcie i Kontakt](#-wsparcie-i-kontakt)
 
 ---
 
 ## 🚀 Opis Projektu
 
-**Mate-chess.pl** to nowoczesna aplikacja szachowa, zaprojektowana z myślą o graczach na każdym poziomie zaawansowania.  
+**Mate-chess** to nowoczesna aplikacja szachowa, zaprojektowana z myślą o graczach na każdym poziomie zaawansowania.  
 Aplikacja oferuje:
 
 ✅ Możliwość gry online i offline  
@@ -36,7 +45,7 @@ Aplikacja oferuje:
 ✅ Nauka szachów poprzez interaktywne lekcje i zadania  
 ✅ Tworzenie oraz uczestnictwo w turniejach online
 
-Mate-chess.pl czerpie inspirację z największych serwisów szachowych, ale dodaje nowoczesne funkcjonalności, optymalizację UX oraz wieloplatformowość.
+Mate-chess czerpie inspirację z największych serwisów szachowych, ale dodaje nowoczesne funkcjonalności, optymalizację UX oraz wieloplatformowość.
 
 ---
 
@@ -110,13 +119,21 @@ Aplikacja została zbudowana w oparciu o nowoczesny stack technologiczny:
 1️⃣ **Klonowanie repozytorium:**
 
 ```bash
-git clone https://github.com/matiqueue/mate-chess.pl.git
+git clone https://github.com/matiqueue/mate-chess.git
 ```
 
-2️⃣ **Instalacja zależności:**
+**Wymagania:** Node.js ≥ 20.9 (zalecany 24 LTS), pnpm 10, a dla aplikacji desktopowej – Rust (stable) i Tauri 2.
+
+2️⃣ **Instalacja zależności i zmiennych środowiskowych:**
 
 ```bash
 pnpm install
+```
+
+Klucze (Clerk, MongoDB, Groq, dane admina) nie są trzymane w repozytorium. Ustaw je jako zmienne środowiskowe i uruchom skrypt, który utworzy pliki `.env` (istniejących nie nadpisuje bez `--force`), albo uzupełnij je ręcznie na podstawie plików `.env.example` w `apps/web`, `apps/admin` i `apps/errors`:
+
+```bash
+pnpm env:setup
 ```
 
 3️⃣ **Uruchomienie aplikacji:**
@@ -124,14 +141,61 @@ pnpm install
 - **Frontend (Web) na porcie 3000**
 
 ```bash
-pnpm dev --filter=apps/web
+pnpm dev --filter=web
 ```
 
 - **Backend (Server) na porcie 4000**
 
 ```bash
-pnpm dev --filter=apps/server
+pnpm dev --filter=server
 ```
+
+- **Panel admina na porcie 3001**
+
+```bash
+pnpm dev --filter=admin
+```
+
+- **Serwis logów błędów (WebSocket) na porcie 3005**
+
+```bash
+pnpm dev --filter=errors
+```
+
+- **Aplikacja desktopowa (Tauri 2)** – w trybie deweloperskim ładuje aplikację web z `http://localhost:3000`, więc web musi być uruchomiony
+
+```bash
+pnpm dev --filter=desktop
+```
+
+4️⃣ **Sprawdzenie i build:**
+
+```bash
+pnpm check-types   # TypeScript we wszystkich pakietach
+pnpm lint          # ESLint
+pnpm test          # testy silnika szachowego (Jest)
+pnpm build         # build całego monorepo (web, admin, server, errors i paczka desktopowa)
+```
+
+Najważniejsze zmienne środowiskowe (poza kluczami z plików `.env.example`):
+
+| Zmienna | Gdzie | Opis |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SERVER_URL` | web, admin | Adres serwera gry (domyślnie `http://localhost:4000`) |
+| `NEXT_PUBLIC_ERRORS_WS_URL` | web, admin | Adres serwisu logów błędów (domyślnie `ws://localhost:3005`, tylko w trybie dev) |
+| `PORT` | server | Port serwera gry (domyślnie `4000`) |
+| `CORS_ORIGINS` | server | Dodatkowe dozwolone adresy frontendu, rozdzielone przecinkami |
+
+---
+
+## 🚢 Wdrożenie, CI i wydania
+
+- **Web (Vercel)** – projekt `mate-chess` (katalog `apps/web`) jest podpięty do repozytorium. Każdy push na `main` wdraża produkcję na [matechess.vercel.app](https://matechess.vercel.app), a każdy pull request dostaje własny podgląd. Zmienne środowiskowe (Clerk, MongoDB) ustawia się w ustawieniach projektu na Vercelu. Build jest pomijany (`turbo-ignore`), gdy zmiana nie dotyczy aplikacji web.
+- **CI** (`.github/workflows/ci.yml`) – przy każdym PR i pushu na `main`: sprawdzenie typów, lint, testy silnika oraz build admina, serwera i serwisu błędów.
+- **Aplikacja desktopowa** (`.github/workflows/release.yml`) – po zmianach w `apps/desktop` na `main` (lub ręcznie z zakładki Actions) buduje instalatory dla macOS (Apple Silicon i Intel), Windows i Linuksa i publikuje je jako wydanie `desktop-v<wersja>` w [GitHub Releases](https://github.com/matiqueue/mate-chess/releases). Strona [/download](https://matechess.vercel.app/download) automatycznie pokazuje pliki z najnowszego wydania. Przed nowym wydaniem podbij `version` w `apps/desktop/src-tauri/tauri.conf.json`.
+- **Dependabot** (`.github/dependabot.yml`) – cotygodniowe, zgrupowane aktualizacje zależności npm oraz comiesięczne dla Rust i GitHub Actions.
+
+**Jak działa aplikacja desktopowa:** to lekka nakładka Tauri na wersję webową. Po uruchomieniu pokazuje lokalny ekran ładowania, sprawdza połączenie i otwiera `https://matechess.vercel.app` (w trybie dev – `http://localhost:3000`). Dzięki temu instalator jest mały, aplikacja jest zawsze aktualna i nie zawiera żadnych kluczy. Linki otwierane w nowym oknie trafiają do domyślnej przeglądarki, a bez internetu aplikacja pokazuje komunikat z możliwością ponowienia.
 
 ---
 
@@ -338,7 +402,7 @@ Każdy członek zespołu wnosi unikalne umiejętności, co pozwala na efektywną
 ## 💡 Kontrybucja
 
 Chcesz pomóc rozwijać projekt? 🚀  
-👉 **Zgłoś issue lub pull requesta tutaj:** [mate-chess.pl Issues](https://github.com/matiqueue/mate-chess.pl/issues)
+👉 **Zgłoś issue lub pull requesta tutaj:** [mate-chess Issues](https://github.com/matiqueue/mate-chess/issues)
 
 ---
 
@@ -352,7 +416,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
 ## 📞 Wsparcie i Kontakt
 
 📧 Email: [matiqueue@gmail.com](mailto:matiqueue@gmail.com)  
-🐙 GitHub Issues: [mate-chess.pl Issues](https://github.com/matiqueue/mate-chess.pl/issues)
+🐙 GitHub Issues: [mate-chess Issues](https://github.com/matiqueue/mate-chess/issues)
 
 ---
 
@@ -401,6 +465,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
 ### 2.Destop version - `apps/desktop`
 
 - `package.json` – zależności i skrypty aplikacji desktopowej
+- `dist/index.html` – ekran ładowania, który sprawdza połączenie i otwiera wersję webową
 - **`src-tauri/`** – kod Tauri:
   - `Cargo.lock` – zablokowane wersje zależności Rust
   - `Cargo.toml` – konfiguracja projektu Rust
@@ -418,11 +483,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
     - `Square44x44Logo.png` – ikona 44x44
     - `Square71x71Logo.png` – ikona 71x71
     - `Square89x89Logo.png` – ikona 89x89
-    - `Logo.png` – główna ikona logo
-    - `chess-pawn.png` – ikona pionka szachowego
-    - `chess-pawn128x128.png` – ikona pionka 128x128
-    - `chess-pawn32x32.png` – ikona pionka 32x32
-    - `chess-pawn64x64.png` – ikona pionka 64x64
+    - `app-icon.svg` / `app-icon.png` – źródło ikony (z niego generowane są pozostałe przez `pnpm tauri icon`)
     - `icon.icns` – ikona dla macOS
     - `icon.ico` – ikona dla Windows
     - `icon.png` – domyślna ikona PNG
@@ -626,7 +687,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
   - `en.json` – tłumaczenie angielska
   - `pl.json` – tłumaczenie polska
   - `ru.json` – tłumaczenie rosyjska
-- `middleware.ts` – middleware aplikacji
+- `proxy.ts` – proxy (dawniej middleware) aplikacji – Next.js 16
 - `next-env.d.ts` – definicje typów dla Next.js
 - `next.config.mjs` – konfiguracja Next.js
 - `package.json` – zależności i skrypty aplikacji webowej

@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import PuzzlesClient from "./puzzles-client"
-import { t } from "i18next"
 /**
  * Metadane strony puzzli szachowych.
  *
@@ -8,8 +7,8 @@ import { t } from "i18next"
  * Autor: matiqueue (Szymon Góral)
  */
 export const metadata: Metadata = {
-  title: t("seo.puzzles.title"),
-  description: t("seo.puzzles.description"),
+  title: "Chess Puzzles | Mate-Chess",
+  description: "Train your chess skills with quizzes and learn the game step by step.",
 }
 /**
  * PuzzlesPage

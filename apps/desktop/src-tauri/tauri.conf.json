@@ -1,62 +1,62 @@
 {
-  "$schema": "../../web/node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Mate Chess",
+  "mainBinaryName": "Mate Chess",
+  "version": "0.2.0",
+  "identifier": "com.matechess.desktop",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "http://localhost:3000",
-    "distDir": "../../web//.next"
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:3000"
   },
-  "package": {
-    "productName": "Mate Chess",
-    "version": "0.1.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false
+  "bundle": {
+    "active": true,
+    "category": "BoardGame",
+    "copyright": "© Digital Gods",
+    "shortDescription": "Mate Chess – szachy online, z botem i lokalnie",
+    "longDescription": "Desktopowa wersja Mate Chess – szachy online, z botem i lokalnie. Aplikacja ładuje wersję webową z https://matechess.vercel.app.",
+    "targets": "all",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "bundle": {
-      "active": true,
-      "category": "DeveloperTool",
-      "copyright": "",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
+    },
+    "linux": {
       "deb": {
         "depends": []
-      },
-      "externalBin": [],
-      "icon": ["icons/chess-pawn32x32.png", "icons/chess-pawn128x128.png", "icons/chess-pawn64x64.png"],
-      "identifier": "com.matechess.pl",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-      "resources": [],
-      "shortDescription": "",
-      "targets": "all",
-      "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
       }
-    },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
+    }
+  },
+  "plugins": {},
+  "app": {
     "windows": [
       {
-        "fullscreen": true,
-        "height": 600,
-        "resizable": true,
+        "label": "main",
         "title": "Mate Chess",
-        "transparent": true,
-        "width": 800,
-        "decorations": false
+        "width": 1280,
+        "height": 820,
+        "minWidth": 960,
+        "minHeight": 640,
+        "center": true,
+        "resizable": true,
+        "backgroundColor": "#09090b",
+        "useHttpsScheme": true,
+        "create": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
       }
-    ]
+    ],
+    "security": {
+      "csp": null
+    }
   }
 }

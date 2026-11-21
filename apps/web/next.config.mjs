@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@workspace/ui", "@workspace/chess-engine/functions"],
+  transpilePackages: ["@workspace/ui", "@workspace/chess-engine"],
   env: {
     NEXT_PRIVATE_IGNORE_ERRORS_DURING_BUILD: "true",
   },

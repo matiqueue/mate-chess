@@ -1,5 +1,6 @@
 "use client"
 
+import { ERRORS_WS_URL } from "@/lib/config"
 import { createContext, useContext, useEffect, useRef, ReactNode } from "react"
 
 /**
@@ -47,11 +48,13 @@ export function ErrorContextProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    wsRef.current = new WebSocket("ws://localhost:3005")
+    // Serwis logów błędów działa tylko lokalnie (lub gdy ustawiono NEXT_PUBLIC_ERRORS_WS_URL)
+    if (ERRORS_WS_URL) wsRef.current = new WebSocket(ERRORS_WS_URL)
 
-    wsRef.current.onopen = () => {
-      console.log("Połączono z WebSocket w ErrorContextProvider (admin)")
-    }
+    if (wsRef.current)
+      wsRef.current.onopen = () => {
+        console.log("Połączono z WebSocket w ErrorContextProvider (admin)")
+      }
 
     const originalConsoleError = console.error
     const originalConsoleWarn = console.warn
@@ -107,7 +110,12 @@ export function ErrorContextProvider({ children }: { children: ReactNode }) {
     return () => {
       console.error = originalConsoleError
       console.warn = originalConsoleWarn
-      if (wsRef.current) wsRef.current.close()
+      const ws = wsRef.current
+      if (ws) {
+        // Jeśli połączenie jeszcze się nawiązuje, zamknij je po otwarciu (unika ostrzeżenia w React Strict Mode)
+        if (ws.readyState === WebSocket.CONNECTING) ws.onopen = () => ws.close()
+        else ws.close()
+      }
     }
   }, [])
 
