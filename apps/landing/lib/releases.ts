@@ -65,7 +65,7 @@ export async function getLatestDesktopRelease(): Promise<DesktopRelease | null> 
         }
       }
       if (assets.length > 0) {
-        return { version: release.tag_name.replace(/^v/, ""), publishedAt: release.published_at, url: release.html_url, assets }
+        return { version: release.tag_name.replace(/^(desktop-)?v/, ""), publishedAt: release.published_at, url: release.html_url, assets }
       }
     }
     return null
