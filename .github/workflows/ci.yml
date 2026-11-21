@@ -43,5 +43,5 @@ jobs:
         run: pnpm test
 
       # Aplikację web buduje i wdraża Vercel (podgląd dla każdego PR), tutaj budujemy pozostałe aplikacje
-      - name: Build admin, server and errors
-        run: pnpm turbo build --filter=admin --filter=server --filter=errors
+      - name: Build landing, admin, server and errors
+        run: pnpm turbo build --filter=landing --filter=admin --filter=server --filter=errors
