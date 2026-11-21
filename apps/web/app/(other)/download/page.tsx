@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: "Download Mate Chess for macOS, Windows and Linux.",
 }
 
-// Lista wydań odświeżana co godzinę (ISR)
-export const revalidate = 3600
+// Lista wydań odświeżana co 10 minut (ISR)
+export const revalidate = 600
 
 export default async function Page() {
   const release = await getLatestDesktopRelease()

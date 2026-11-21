@@ -50,7 +50,7 @@ export async function getLatestDesktopRelease(): Promise<DesktopRelease | null> 
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases?per_page=30`, {
       headers: { Accept: "application/vnd.github+json" },
-      next: { revalidate: 3600 },
+      next: { revalidate: 600 },
     })
     if (!res.ok) return null
     const releases = (await res.json()) as GitHubRelease[]
