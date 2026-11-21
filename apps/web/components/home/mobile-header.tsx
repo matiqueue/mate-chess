@@ -53,7 +53,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   return (
     <header className={cn("flex flex-col border-b", className)}>
       {/* Główna sekcja nagłówka */}
-      <div className="flex items-center justify-between p-4">
+      <div data-tauri-drag-region className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <SidebarTrigger /> {/* Wyzwalacz paska bocznego */}
           <Link href="/home">

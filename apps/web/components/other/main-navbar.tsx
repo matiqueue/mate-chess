@@ -34,9 +34,9 @@ export function Navbar() {
   ]
 
   return (
-    <header className="w-full border-b bg-background">
+    <header data-tauri-drag-region className="w-full border-b bg-background">
       <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between">
+        <div data-tauri-drag-region className="flex h-14 items-center justify-between">
           <div className="flex items-center">
             <Link href="/home" className="flex items-center space-x-2">
               <Chess className="h-6 w-6" />

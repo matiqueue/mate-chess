@@ -1,6 +1,7 @@
 import { Providers } from "@/components/providers" // Import komponentu Providers
 import { Metadata } from "next" // Import typu Metadata
 import { desktopFlagScript } from "@/lib/desktop"
+import { DesktopWindowControls } from "@/components/desktop/window-controls"
 
 /**
  * Metadane aplikacji.
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Providers>{children}</Providers>
+        <DesktopWindowControls />
       </body>
     </html>
   )

@@ -63,7 +63,7 @@ export function Navbar({ className }: NavbarProps) {
 
   // Renderowanie paska nawigacyjnego
   return (
-    <header className={cn("w-full h-16 border-b px-6 flex items-center gap-6 bg-sidebar", className)}>
+    <header data-tauri-drag-region className={cn("w-full h-16 border-b px-6 flex items-center gap-6 bg-sidebar", className)}>
       <SidebarTrigger /> {/* Wyzwalacz paska bocznego */}
       <EnhancedSearch className="flex-1 max-w-sm" /> {/* Komponent wyszukiwania z ograniczoną szerokością */}
       {/* Sekcja z ikonami i funkcjami */}

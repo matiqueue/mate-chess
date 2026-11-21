@@ -50,7 +50,9 @@
         "resizable": true,
         "backgroundColor": "#09090b",
         "useHttpsScheme": true,
-        "create": false
+        "create": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
       }
     ],
     "security": {

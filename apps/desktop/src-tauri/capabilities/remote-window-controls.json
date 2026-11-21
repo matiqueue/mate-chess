@@ -1,0 +1,16 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "remote-window-controls",
+  "description": "Wersja webowa ładowana w oknie aplikacji może tylko sterować oknem (przyciski w prawym górnym rogu i przeciąganie)",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://matechess.vercel.app/*", "http://localhost:3000/*"]
+  },
+  "permissions": [
+    "core:window:allow-start-dragging",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-internal-toggle-maximize"
+  ]
+}
