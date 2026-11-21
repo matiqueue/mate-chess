@@ -33,7 +33,7 @@ export function Footer() {
               {t("main-footer.learn")}
             </Link>
             <a
-              href="https://github.com/matiqueue/mate-chess.pl"
+              href="https://github.com/matiqueue/mate-chess"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-foreground/80"

@@ -37,7 +37,7 @@
   "productName": "Mate Chess",
   "mainBinaryName": "Mate Chess",
   "version": "0.2.0",
-  "identifier": "com.matechess.pl",
+  "identifier": "com.matechess.desktop",
   "plugins": {},
   "app": {
     "windows": [

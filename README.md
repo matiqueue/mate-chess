@@ -2,7 +2,7 @@
  
   <img src="/apps/web/public/backgrounds/readmeBg.png" alt="Home Background">
 
-  <h1>♟️ Mate-chess.pl - Twoje centrum szachowe online ♟️</h1>
+  <h1>♟️ Mate-chess - Twoje centrum szachowe online ♟️</h1>
   <em>"Graj, analizuj, ucz się – rozwijaj swoje szachowe umiejętności!"</em>
 </div>
 
@@ -28,7 +28,7 @@
 
 ## 🚀 Opis Projektu
 
-**Mate-chess.pl** to nowoczesna aplikacja szachowa, zaprojektowana z myślą o graczach na każdym poziomie zaawansowania.  
+**Mate-chess** to nowoczesna aplikacja szachowa, zaprojektowana z myślą o graczach na każdym poziomie zaawansowania.  
 Aplikacja oferuje:
 
 ✅ Możliwość gry online i offline  
@@ -36,7 +36,7 @@ Aplikacja oferuje:
 ✅ Nauka szachów poprzez interaktywne lekcje i zadania  
 ✅ Tworzenie oraz uczestnictwo w turniejach online
 
-Mate-chess.pl czerpie inspirację z największych serwisów szachowych, ale dodaje nowoczesne funkcjonalności, optymalizację UX oraz wieloplatformowość.
+Mate-chess czerpie inspirację z największych serwisów szachowych, ale dodaje nowoczesne funkcjonalności, optymalizację UX oraz wieloplatformowość.
 
 ---
 
@@ -110,7 +110,7 @@ Aplikacja została zbudowana w oparciu o nowoczesny stack technologiczny:
 1️⃣ **Klonowanie repozytorium:**
 
 ```bash
-git clone https://github.com/matiqueue/mate-chess.pl.git
+git clone https://github.com/matiqueue/mate-chess.git
 ```
 
 **Wymagania:** Node.js ≥ 20.9 (zalecany 24 LTS), pnpm 10, a dla aplikacji desktopowej – Rust (stable) i Tauri 2.
@@ -370,7 +370,7 @@ Każdy członek zespołu wnosi unikalne umiejętności, co pozwala na efektywną
 ## 💡 Kontrybucja
 
 Chcesz pomóc rozwijać projekt? 🚀  
-👉 **Zgłoś issue lub pull requesta tutaj:** [mate-chess.pl Issues](https://github.com/matiqueue/mate-chess.pl/issues)
+👉 **Zgłoś issue lub pull requesta tutaj:** [mate-chess Issues](https://github.com/matiqueue/mate-chess/issues)
 
 ---
 
@@ -384,7 +384,7 @@ Projekt udostępniany jest na własnej, niestandardowej licencji.
 ## 📞 Wsparcie i Kontakt
 
 📧 Email: [matiqueue@gmail.com](mailto:matiqueue@gmail.com)  
-🐙 GitHub Issues: [mate-chess.pl Issues](https://github.com/matiqueue/mate-chess.pl/issues)
+🐙 GitHub Issues: [mate-chess Issues](https://github.com/matiqueue/mate-chess/issues)
 
 ---
 

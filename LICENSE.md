@@ -1,11 +1,11 @@
-# License Agreement for mate-chess.pl
+# License Agreement for mate-chess
 
 **Copyright © 2025 Digital Gods**
 
-This license governs the use of the software application **mate-chess.pl** ("the Software") created by the **Digital Gods** team as part of the "Motorola Science Cup" competition organized by Motorola Solutions Polska. By using the Software, you agree to the terms of this license agreement.
+This license governs the use of the software application **mate-chess** ("the Software") created by the **Digital Gods** team as part of the "Motorola Science Cup" competition organized by Motorola Solutions Polska. By using the Software, you agree to the terms of this license agreement.
 
 ## 1. Copyright Information
-The owner of the **mate-chess.pl** project is **Mateusz Lis**.  
+The owner of the **mate-chess** project is **Mateusz Lis**.  
 The copyright for the Software belongs to the **Digital Gods** team, consisting of:
 - **Mateusz Lis** – project owner;
 - **Szymon Góral** - project manager;
