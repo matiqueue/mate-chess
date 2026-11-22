@@ -1,72 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3f3f46"/>
-      <stop offset="0.55" stop-color="#18181b"/>
-      <stop offset="1" stop-color="#09090b"/>
+    <linearGradient id="mc-bg" x1="0" y1="0" x2="0" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#232328"/>
+      <stop offset="55%" stop-color="#121216"/>
+      <stop offset="100%" stop-color="#09090b"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.5">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.04"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    <radialGradient id="mc-spot" cx="48%" cy="34%" r="58%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="piece" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="0.6" stop-color="#e4e4e7"/>
-      <stop offset="1" stop-color="#a1a1aa"/>
+    <linearGradient id="mc-light" x1="150" y1="90" x2="340" y2="410" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e4e4e7"/>
     </linearGradient>
-    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
-      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    <linearGradient id="mc-mid" x1="250" y1="100" x2="370" y2="410" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4d4d8"/>
+      <stop offset="100%" stop-color="#71717a"/>
     </linearGradient>
-    <pattern id="checker" width="128" height="128" patternUnits="userSpaceOnUse">
-      <rect width="64" height="64" fill="#ffffff"/>
-      <rect x="64" y="64" width="64" height="64" fill="#ffffff"/>
-    </pattern>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="1"/>
-    </linearGradient>
-    <mask id="checkerMask">
-      <rect x="100" y="100" width="824" height="824" fill="url(#fade)"/>
-    </mask>
-    <clipPath id="squircle">
-      <rect x="100" y="100" width="824" height="824" rx="0"/>
+    <clipPath id="mc-clip">
+      <rect width="512" height="512" rx="116"/>
     </clipPath>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.55"/>
-    </filter>
   </defs>
-  <g transform="translate(512 512) scale(1.2427) translate(-512 -512)">
-  <rect x="100" y="100" width="824" height="824" rx="0" fill="url(#bg)"/>
-  <g clip-path="url(#squircle)">
-    <rect x="100" y="100" width="824" height="824" fill="url(#checker)" opacity="0.07" mask="url(#checkerMask)"/>
-    <circle cx="512" cy="440" r="380" fill="url(#glow)"/>
-    <rect x="100" y="100" width="824" height="412" fill="url(#shine)"/>
+
+  <g clip-path="url(#mc-clip)">
+    <!-- Matte monochrome squircle -->
+    <rect width="512" height="512" rx="116" fill="url(#mc-bg)"/>
+
+    <!-- Subtle 2x2 architectural chessboard split -->
+    <rect x="0" y="0" width="256" height="256" fill="#ffffff" fill-opacity="0.035"/>
+    <rect x="256" y="256" width="256" height="256" fill="#ffffff" fill-opacity="0.035"/>
+
+    <!-- Soft top spotlight -->
+    <circle cx="256" cy="180" r="230" fill="url(#mc-spot)"/>
+
+    <!-- Pure architectural geometric Knight silhouette (zero cartoonish eye) -->
+    <path
+      d="M170 356 L190 282 L248 244 L176 244 L142 214 L158 178 L224 132 L244 94 L276 126 C332 144 366 202 360 286 L344 356 Z"
+      fill="url(#mc-light)"
+    />
+    <!-- Sculpted metallic right facet (mane ridge) -->
+    <path
+      d="M276 126 C332 144 366 202 360 286 L344 356 H274 L290 252 C294 206 276 162 248 138 L244 94 Z"
+      fill="url(#mc-mid)"
+    />
+    <!-- Subtle diagonal architectural slash accent across upper neck -->
+    <path
+      d="M190 282 L292 212"
+      stroke="#0e0e11"
+      stroke-opacity="0.22"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+
+    <!-- Two-tier minimalist base -->
+    <rect x="160" y="370" width="192" height="16" rx="8" fill="#d4d4d8"/>
+    <rect x="138" y="396" width="236" height="26" rx="13" fill="url(#mc-light)"/>
   </g>
 
-  <!-- Skoczek -->
-  <g filter="url(#shadow)">
-    <path fill="url(#piece)" d="
-      M 395 700
-      C 385 640, 405 595, 452 562
-      C 425 548, 392 545, 362 528
-      C 340 516, 326 495, 330 470
-      C 333 448, 345 432, 362 420
-      L 430 340
-      C 448 305, 468 275, 485 248
-      L 498 196
-      C 520 214, 535 236, 540 262
-      C 600 280, 650 330, 668 420
-      C 688 520, 668 620, 640 700
-      Z"/>
-    <rect x="368" y="700" width="296" height="40" rx="14" fill="url(#piece)"/>
-    <rect x="330" y="752" width="372" height="64" rx="22" fill="url(#piece)"/>
-  </g>
-  <!-- Detale -->
-  <path d="M 430 388 C 440 366, 462 356, 478 360 C 470 380, 452 392, 430 388 Z" fill="#18181b"/>
-  <ellipse cx="352" cy="466" rx="8" ry="6" fill="#52525b" transform="rotate(-20 352 466)"/>
-  <path d="M 540 262 C 600 280, 650 330, 668 420 C 688 520, 668 620, 640 700" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="5" stroke-linecap="round"/>
-  <path d="M 560 300 C 600 330, 625 380, 632 440 M 585 290 C 632 330, 652 390, 656 460" fill="none" stroke="#a1a1aa" stroke-opacity="0.55" stroke-width="8" stroke-linecap="round"/>
-  </g>
+  <rect x="2" y="2" width="508" height="508" rx="114" stroke="#ffffff" stroke-opacity="0.12" stroke-width="4"/>
 </svg>
